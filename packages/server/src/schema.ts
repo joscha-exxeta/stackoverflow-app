@@ -1,8 +1,10 @@
-export const typeDefs = `#graphql
+export const typeDefs = /* GraphQL */ `
+  #graphql
   type Question {
     id: ID!
     title: String!
     body: String!
+    comments: [Comment!]
     answers: [Answer!]
     votes: [Vote!]
   }
@@ -11,6 +13,7 @@ export const typeDefs = `#graphql
     id: ID!
     body: String!
     question: Question!
+    comments: [Comment!]
     votes: [Vote!]
   }
 

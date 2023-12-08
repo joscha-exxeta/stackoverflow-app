@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+generated.types.ts
+packages/client/src/gql
+!packages/client/src/gql/client.ts
