@@ -18,12 +18,12 @@ export const routes: RouteObject[] = [
         element: <HomePage />,
       },
       {
-        path: "list",
-        element: <QuestionListPage />,
-      },
-      {
-        path: "question",
+        path: "questions",
         children: [
+          {
+            index: true,
+            element: <QuestionListPage />,
+          },
           {
             path: ":id",
             element: <QuestionDetailPage />,
