@@ -1,34 +1,29 @@
-type Answer {
+type Question {
+  _id: ID!
+  title: String!
   body: String!
-  comments: [Comment!]
-  id: ID!
-  question: Question!
-  votes: [Vote!]
+  comments: [Comment]
+  answers: [Answer]
+  upvotes: Int!
+  downvotes: Int!
+}
+
+type Answer {
+  _id: ID!
+  body: String!
+  comments: [Comment]
+  questionId: ID!
+  upvotes: Int!
+  downvotes: Int!
 }
 
 type Comment {
-  answer: Answer
+  _id: ID!
   body: String!
-  id: ID!
-  question: Question
+  attachedTo: ID!
 }
 
 type Query {
-  question(id: ID!): Question
   questions: [Question!]!
-}
-
-type Question {
-  answers: [Answer!]
-  body: String!
-  comments: [Comment!]
-  id: ID!
-  title: String!
-  votes: [Vote!]
-}
-
-type Vote {
-  answer: Answer
-  id: ID!
-  question: Question
+  question(_id: ID!): Question
 }

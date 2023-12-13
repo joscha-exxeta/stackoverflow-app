@@ -1,37 +1,31 @@
 export const typeDefs = /* GraphQL */ `
-  #graphql
   type Question {
-    id: ID!
+    _id: ID!
     title: String!
     body: String!
-    comments: [Comment!]
-    answers: [Answer!]
-    votes: [Vote!]
+    comments: [Comment]
+    answers: [Answer]
+    upvotes: Int!
+    downvotes: Int!
   }
 
   type Answer {
-    id: ID!
+    _id: ID!
     body: String!
-    question: Question!
-    comments: [Comment!]
-    votes: [Vote!]
+    comments: [Comment]
+    questionId: ID!
+    upvotes: Int!
+    downvotes: Int!
   }
 
   type Comment {
-    id: ID!
+    _id: ID!
     body: String!
-    question: Question
-    answer: Answer
-  }
-
-  type Vote {
-    id: ID!
-    answer: Answer
-    question: Question
+    attachedTo: ID!
   }
 
   type Query {
     questions: [Question!]!
-    question(id: ID!): Question
+    question(_id: ID!): Question
   }
 `;
