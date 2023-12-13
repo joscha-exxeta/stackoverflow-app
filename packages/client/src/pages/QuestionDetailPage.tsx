@@ -1,40 +1,42 @@
 import { gql, useQuery } from "@apollo/client";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { IconExclamationCircle, IconLoader } from "@tabler/icons-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { CommentItem } from "../components/CommentItem";
+import { QuestionQuery } from "../gql/graphql";
 
-const GET_QUESTION = gql`
-  query GetQuestion($id: ID!) {
-    question(id: $id) {
-      id
+const questionQueryDocument = gql`
+  query Question($id: ID!) {
+    question(_id: $id) {
+      _id
       title
       body
       comments {
-        id
+        _id
         body
       }
       answers {
-        id
+        _id
         body
         comments {
-          id
+          _id
           body
         }
       }
-      votes {
-        id
-      }
+      upvotes
+      downvotes
     }
   }
 `;
 
 export const QuestionDetailPage = () => {
   const { id } = useParams<{ id: string }>();
-  const { loading, error, data } = useQuery(GET_QUESTION, {
-    variables: { id },
-  });
+  const { loading, error, data } = useQuery<QuestionQuery>(
+    questionQueryDocument,
+    {
+      variables: { id },
+    }
+  );
   const navigate = useNavigate();
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error...</p>;
 
   return (
     <>
@@ -44,50 +46,61 @@ export const QuestionDetailPage = () => {
         </button>
       </header>
 
-      <h2 className="font-bold text-lg mb-2">Frage</h2>
-      <div className="bg-red-100 p-8 rounded-lg mb-4">
-        <h1 className="font-bold text-lg mb-2">{data.question.title}</h1>
-        <p className="">{data.question.body}</p>
-        {data.question.comments?.length > 0 && (
-          <div className="ml-8">
-            <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
-            {data.question.comments.map((comment) => (
-              <section
-                key={comment.id}
-                className="bg-red-200 p-4 rounded-lg mb-3"
-              >
-                <p className="text-sm">{comment.body}</p>
-              </section>
-            ))}
-          </div>
-        )}
-      </div>
+      {loading && (
+        <p className="flex gap-2 my-8">
+          <IconLoader className="animate-spin" /> Lädt...
+        </p>
+      )}
+      {error && (
+        <p className="flex gap-2 my-8">
+          <IconExclamationCircle /> Es ist ein Fehler aufgetreten:{" "}
+          {error.message}
+        </p>
+      )}
 
-      {data.question.answers && (
-        <div>
-          <h2 className="font-bold text-lg mb-2">Antworten</h2>
-          {data.question.answers.map((answer) => (
-            <section
-              key={answer.id}
-              className="bg-blue-100 p-8 rounded-lg mb-3"
-            >
-              <p>{answer.body}</p>
-              {answer.comments?.length > 0 && (
-                <div className="ml-8">
-                  <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
-                  {answer.comments.map((comment) => (
-                    <section
-                      key={comment.id}
-                      className="bg-blue-200 p-4 rounded-lg mb-3"
-                    >
-                      <p className="text-sm">{comment.body}</p>
-                    </section>
-                  ))}
-                </div>
-              )}
-            </section>
-          ))}
-        </div>
+      {data?.question && (
+        <>
+          <h2 className="font-bold text-lg mb-2">Frage</h2>
+          <div className="bg-red-100 p-8 rounded-lg mb-4">
+            <h1 className="font-bold text-lg mb-2">{data?.question?.title}</h1>
+            <p className="">{data?.question?.body}</p>
+            {data?.question?.comments && data.question.comments?.length > 0 && (
+              <div className="ml-8">
+                <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
+                {data.question.comments.map((comment) => (
+                  <CommentItem key={comment?._id} {...comment} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          {data?.question?.answers && (
+            <div>
+              <h2 className="font-bold text-lg mb-2">Antworten</h2>
+              {data.question.answers.map((answer) => (
+                <section
+                  key={answer?._id}
+                  className="bg-blue-100 p-8 rounded-lg mb-3"
+                >
+                  <p>{answer?.body}</p>
+                  {answer?.comments && answer?.comments.length > 0 && (
+                    <div className="ml-8">
+                      <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
+                      {answer?.comments.map((comment) => (
+                        <section
+                          key={comment?._id}
+                          className="bg-blue-200 p-4 rounded-lg mb-3"
+                        >
+                          <p className="text-sm">{comment?.body}</p>
+                        </section>
+                      ))}
+                    </div>
+                  )}
+                </section>
+              ))}
+            </div>
+          )}
+        </>
       )}
     </>
   );
