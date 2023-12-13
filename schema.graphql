@@ -1,29 +1,29 @@
-type Question {
-  _id: ID!
-  title: String!
-  body: String!
-  comments: [Comment]
-  answers: [Answer]
-  upvotes: Int!
-  downvotes: Int!
-}
-
 type Answer {
   _id: ID!
   body: String!
   comments: [Comment]
+  downvotes: Int!
   questionId: ID!
   upvotes: Int!
-  downvotes: Int!
 }
 
 type Comment {
   _id: ID!
-  body: String!
   attachedTo: ID!
+  body: String!
 }
 
 type Query {
-  questions: [Question!]!
   question(_id: ID!): Question
+  questions: [Question!]!
+}
+
+type Question {
+  _id: ID!
+  answers: [Answer]
+  body: String!
+  comments: [Comment]
+  downvotes: Int!
+  title: String!
+  upvotes: Int!
 }
