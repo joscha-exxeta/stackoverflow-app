@@ -1,5 +1,4 @@
 import { GqlContext } from "./create-context";
-import { ObjectId } from "mongodb";
 
 export const resolvers = {
   Query: {
@@ -7,26 +6,20 @@ export const resolvers = {
       return await db.questions.find().toArray();
     },
     question: async (_parent, { _id }, { db }: GqlContext) => {
-      return await db.questions.findOne({ _id: new ObjectId(_id) });
+      return await db.questions.findOne({ _id });
     },
   },
   Question: {
     comments: async (question, _, { db }) => {
-      return await db.comments
-        .find({ attachedTo: new ObjectId(question._id) })
-        .toArray();
+      return await db.comments.find({ attachedTo: question._id }).toArray();
     },
     answers: async (question, _, { db }) => {
-      return await db.answers
-        .find({ questionId: new ObjectId(question._id) })
-        .toArray();
+      return await db.answers.find({ questionId: question._id }).toArray();
     },
   },
   Answer: {
     comments: async (answer, _, { db }) => {
-      return await db.comments
-        .find({ attachedTo: new ObjectId(answer._id) })
-        .toArray();
+      return await db.comments.find({ attachedTo: answer._id }).toArray();
     },
   },
 };
