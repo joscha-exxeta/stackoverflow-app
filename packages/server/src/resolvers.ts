@@ -1,12 +1,32 @@
-import { data } from "./data";
+import { GqlContext } from "./create-context";
+import { ObjectId } from "mongodb";
 
 export const resolvers = {
   Query: {
-    questions: () => {
-      return data.questions;
+    questions: async (_parent, _, { db }: GqlContext) => {
+      return await db.questions.find().toArray();
     },
-    question: (_parent, args, _ctx) => {
-      return data.questions.find((question) => question.id === args.id);
+    question: async (_parent, { _id }, { db }: GqlContext) => {
+      return await db.questions.findOne({ _id: new ObjectId(_id) });
+    },
+  },
+  Question: {
+    comments: async (question, _, { db }) => {
+      return await db.comments
+        .find({ attachedTo: new ObjectId(question._id) })
+        .toArray();
+    },
+    answers: async (question, _, { db }) => {
+      return await db.answers
+        .find({ questionId: new ObjectId(question._id) })
+        .toArray();
+    },
+  },
+  Answer: {
+    comments: async (answer, _, { db }) => {
+      return await db.comments
+        .find({ attachedTo: new ObjectId(answer._id) })
+        .toArray();
     },
   },
 };
