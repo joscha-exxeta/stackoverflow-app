@@ -68,7 +68,11 @@ export const QuestionDetailPage = () => {
               <div className="ml-8">
                 <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
                 {data.question.comments.map((comment) => (
-                  <CommentItem key={comment?._id} {...comment} />
+                  <CommentItem
+                    key={comment?._id}
+                    {...comment}
+                    classes="bg-red-200"
+                  />
                 ))}
               </div>
             )}
@@ -87,12 +91,11 @@ export const QuestionDetailPage = () => {
                     <div className="ml-8">
                       <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
                       {answer?.comments.map((comment) => (
-                        <section
+                        <CommentItem
                           key={comment?._id}
-                          className="bg-blue-200 p-4 rounded-lg mb-3"
-                        >
-                          <p className="text-sm">{comment?.body}</p>
-                        </section>
+                          {...comment}
+                          classes="bg-blue-200"
+                        />
                       ))}
                     </div>
                   )}
