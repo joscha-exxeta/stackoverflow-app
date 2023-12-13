@@ -1,4 +1,5 @@
 import { GqlContext } from "./create-context";
+import { ObjectId } from "mongodb";
 
 export const resolvers = {
   Query: {
@@ -6,7 +7,7 @@ export const resolvers = {
       return await db.questions.find().toArray();
     },
     question: async (_parent, { _id }, { db }: GqlContext) => {
-      return await db.questions.findOne({ _id });
+      return await db.questions.findOne({ _id: new ObjectId(_id) });
     },
   },
   Question: {
