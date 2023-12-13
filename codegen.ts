@@ -26,7 +26,7 @@ const config: CodegenConfig = {
       },
       documentTransforms: [addTypenameSelectionDocumentTransform],
     },
-    "./packages/client/src/gql/fragement.ts": {
+    "./packages/client/src/gql/fragment.ts": {
       plugins: ["fragment-matcher"],
       config: {
         module: "es2015",
