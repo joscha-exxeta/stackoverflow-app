@@ -89,7 +89,9 @@ export const QuestionItem = ({
           </p>
         )}
       </footer>
-      {showComments && <CommentsList comments={comments} color="purple-200" />}
+      {showComments && (
+        <CommentsList comments={comments} attachedTo={_id} color="purple-200" />
+      )}
     </div>
   );
 };

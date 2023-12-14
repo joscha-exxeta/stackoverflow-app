@@ -63,7 +63,7 @@ export const AnswerItem = ({
           {downvotes} <IconThumbDown size={20} />
         </p>
       </footer>
-      <CommentsList comments={comments} />
+      <CommentsList comments={comments} attachedTo={_id} />
     </section>
   );
 };

@@ -37,15 +37,14 @@ export const resolvers = {
     },
     addComment: async (_, { comment }, { db }: GqlContext) => {
       const { body, attachedTo } = comment;
-      const newComment = await db.comments.insertOne({
+      const result = await db.comments.insertOne({
         _id: new ObjectId(),
         body,
-        attachedTo,
+        attachedTo: new ObjectId(attachedTo),
       });
-      await db.questions.updateOne(
-        { _id: new ObjectId(attachedTo) },
-        { $push: { comments: newComment.insertedId } }
-      );
+      const newComment = await db.comments.findOne({
+        _id: result.insertedId,
+      });
       return newComment;
     },
     upvoteQuestion: async (_, { vote }, { db }: GqlContext) => {

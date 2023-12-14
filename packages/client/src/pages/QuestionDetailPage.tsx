@@ -4,7 +4,7 @@ import {
   IconLoader,
   IconPlus,
 } from "@tabler/icons-react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AnswerItem } from "../components/AnswerItem";
 import { QuestionItem } from "../components/QuestionItem";
 import { QuestionQuery } from "../gql/graphql";
