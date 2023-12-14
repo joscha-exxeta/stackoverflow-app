@@ -32,12 +32,6 @@ export const QuestionListPage = () => {
 
   return (
     <>
-      <header className="mb-4">
-        <Button onClick={() => navigate(-1)} type="secondary">
-          <IconArrowNarrowLeft />
-          Zurück
-        </Button>
-      </header>
       <h1 className="font-bold text-xl mb-2">Alle Fragen</h1>
       <section data-testid="questions-list">
         {loading && (

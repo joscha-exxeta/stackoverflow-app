@@ -16,12 +16,12 @@ export const Button = ({
   const styles =
     type === "primary"
       ? "border-2 border-purple-600 bg-purple-600 text-white hover:bg-purple-800 hover:border-purple-800"
-      : "border-2 border-purple-600 text-purple-600 hover:bg-purple-600 hover:text-white";
+      : "border-2 border-white text-white hover:bg-white hover:text-black";
 
   return (
     <button
       onClick={onClick}
-      className={`${classes} flex gap-2 ${styles} font-bold transition-all rounded-md px-4 py-2`}
+      className={`${classes} flex items-center gap-2 ${styles} font-bold transition-all rounded-md px-3 py-1`}
     >
       {children}
     </button>

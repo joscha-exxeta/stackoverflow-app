@@ -15,15 +15,11 @@ export const routes: RouteObject[] = [
     children: [
       {
         index: true,
-        element: <HomePage />,
+        element: <QuestionListPage />,
       },
       {
-        path: "questions",
+        path: "question",
         children: [
-          {
-            index: true,
-            element: <QuestionListPage />,
-          },
           {
             path: ":id",
             element: <QuestionDetailPage />,

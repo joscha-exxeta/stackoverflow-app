@@ -50,13 +50,6 @@ export const QuestionDetailPage = () => {
 
   return (
     <>
-      <header className="mb-4">
-        <Button onClick={() => navigate(-1)} type="secondary">
-          <IconArrowNarrowLeft />
-          Zurück
-        </Button>
-      </header>
-
       {loading && (
         <p className="flex gap-2 my-8">
           <IconLoader className="animate-spin" /> Lädt...

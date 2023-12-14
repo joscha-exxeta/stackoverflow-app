@@ -13,7 +13,7 @@ export const QuestionItem = ({
   return (
     <div className="bg-purple-100 p-8 rounded-lg mb-4">
       <header className="mb-4">
-        <Link to={_id}>
+        <Link to={`question/${_id}`}>
           <h2 className="text-lg font-bold mb-2 hover:underline">{title}</h2>
         </Link>
         <p>{body}</p>
