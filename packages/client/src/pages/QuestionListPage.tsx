@@ -1,8 +1,15 @@
 import { gql, useQuery } from "@apollo/client";
-import { IconExclamationCircle, IconLoader } from "@tabler/icons-react";
+import {
+  IconArrowBack,
+  IconArrowNarrowLeft,
+  IconChevronLeft,
+  IconExclamationCircle,
+  IconLoader,
+} from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
 import { QuestionItem } from "../components/QuestionItem";
 import { QuestionsQuery } from "../gql/graphql";
+import { Button } from "../components/Button";
 
 const questionsQueryDocument = gql`
   query Questions {
@@ -28,9 +35,10 @@ export const QuestionListPage = () => {
   return (
     <>
       <header className="mb-4">
-        <button onClick={() => navigate(-1)} className="underline">
+        <Button onClick={() => navigate(-1)} type="secondary">
+          <IconArrowNarrowLeft />
           Zurück
-        </button>
+        </Button>
       </header>
       <h1 className="font-bold text-xl mb-2">Alle Fragen</h1>
       <section>

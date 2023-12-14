@@ -5,3 +5,8 @@
 :root {
   font-family: Sen;
 }
+
+::selection {
+  background-color: theme("colors.purple.600");
+  color: white;
+}
