@@ -44,7 +44,7 @@ export const QuestionListPage = () => {
           </p>
         )}
         {data?.questions.map((question) => (
-          <QuestionItem key={question?._id} {...question} />
+          <QuestionItem key={question?._id} {...question} isLink={true} />
         ))}
         <Link to="question/create">
           <div className="border-2 border-purple-200 p-8 rounded-lg mb-4 flex items-center gap-2 hover:bg-purple-200 hover:underline transition-all">

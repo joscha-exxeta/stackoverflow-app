@@ -31,10 +31,31 @@ export const typeDefs = /* GraphQL */ `
 
   type Mutation {
     createQuestion(question: QuestionInput!): Question!
+    addAnswer(answer: AnswerInput!): Answer!
+    addComment(comment: CommentInput!): Comment!
+    upvoteQuestion(vote: VoteInput!): Question!
+    downvoteQuestion(vote: VoteInput!): Question!
+    upvoteAnswer(vote: VoteInput!): Answer!
+    downvoteAnswer(vote: VoteInput!): Answer!
   }
 
   input QuestionInput {
     title: String!
     body: String!
+  }
+
+  input AnswerInput {
+    body: String!
+    questionId: ID!
+  }
+
+  input CommentInput {
+    body: String!
+    attachedTo: ID!
+  }
+
+  input VoteInput {
+    attachedTo: ID!
+    number: Int!
   }
 `;

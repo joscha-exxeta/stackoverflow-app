@@ -21,7 +21,7 @@ export const QuestionCreatePage = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<QuestionInput>();
-  const [createQuestion, { data, loading, error }] = useMutation(
+  const [createQuestion, { data, loading }] = useMutation(
     createQuestionDocument
   );
 

@@ -2,12 +2,11 @@ import { gql, useQuery } from "@apollo/client";
 import {
   IconExclamationCircle,
   IconLoader,
-  IconThumbDown,
-  IconThumbUp,
+  IconPlus,
 } from "@tabler/icons-react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { AnswerItem } from "../components/AnswerItem";
-import { CommentItem } from "../components/CommentItem";
+import { QuestionItem } from "../components/QuestionItem";
 import { QuestionQuery } from "../gql/graphql";
 
 const questionQueryDocument = gql`
@@ -62,46 +61,22 @@ export const QuestionDetailPage = () => {
       {data?.question && (
         <>
           <h2 className="font-bold text-xl mb-2">Frage</h2>
-          <div className="bg-purple-100 p-8 rounded-lg mb-4">
-            <header className="mb-4">
-              <h1 className="font-bold text-lg mb-2">
-                {data?.question?.title}
-              </h1>
-              <p className="">{data?.question?.body}</p>
-            </header>
-            <footer
-              data-testid="votes-list"
-              className="border-t-2 border-purple-200 pt-4 flex gap-4"
-            >
-              <p className="flex items-center gap-2">
-                {data?.question?.upvotes} <IconThumbUp size={20} />
-              </p>
-              <p className="flex items-center gap-2">
-                {data?.question?.downvotes} <IconThumbDown size={20} />
-              </p>
-            </footer>
-            {data?.question?.comments && data.question.comments?.length > 0 && (
-              <div data-testid="comments-list" className="ml-8">
-                <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
-                {data.question.comments.map((comment) => (
-                  <CommentItem
-                    key={comment?._id}
-                    {...comment}
-                    classes="bg-purple-200"
-                  />
-                ))}
-              </div>
-            )}
-          </div>
+          <QuestionItem {...data?.question} showComments={true} />
 
           {data?.question?.answers && data.question.answers?.length > 0 && (
-            <div data-testid="answers-list">
-              <h2 className="font-bold text-xl mb-2">Antworten</h2>
-              {data.question.answers.map((answer) => (
-                <AnswerItem key={answer?._id} {...answer} />
-              ))}
-            </div>
+            <>
+              <div data-testid="answers-list">
+                <h2 className="font-bold text-xl mb-2">Antworten</h2>
+                {data.question.answers.map((answer) => (
+                  <AnswerItem key={answer?._id} {...answer} />
+                ))}
+              </div>
+            </>
           )}
+          <button className="border-2 border-gray-200 p-8 rounded-lg mb-4 flex w-full items-center gap-2 hover:bg-gray-200 hover:underline transition-all">
+            <IconPlus />
+            Antwort hinzufügen
+          </button>
         </>
       )}
     </>

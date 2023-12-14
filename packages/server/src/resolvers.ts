@@ -19,6 +19,67 @@ export const resolvers = {
       });
       return newQuestion;
     },
+    addAnswer: async (_, { answer }, { db }: GqlContext) => {
+      const { body, questionId } = answer;
+      const newAnswer = await db.answers.insertOne({
+        _id: new ObjectId(),
+        body,
+        questionId,
+        comments: [],
+        upvotes: 0,
+        downvotes: 0,
+      });
+      await db.questions.updateOne(
+        { _id: new ObjectId(questionId) },
+        { $push: { answers: newAnswer.insertedId } }
+      );
+      return newAnswer;
+    },
+    addComment: async (_, { comment }, { db }: GqlContext) => {
+      const { body, attachedTo } = comment;
+      const newComment = await db.comments.insertOne({
+        _id: new ObjectId(),
+        body,
+        attachedTo,
+      });
+      await db.questions.updateOne(
+        { _id: new ObjectId(attachedTo) },
+        { $push: { comments: newComment.insertedId } }
+      );
+      return newComment;
+    },
+    upvoteQuestion: async (_, { vote }, { db }: GqlContext) => {
+      const { attachedTo, number } = vote;
+      await db.questions.updateOne(
+        { _id: new ObjectId(attachedTo) },
+        { $inc: { upvotes: number } }
+      );
+      return db.questions.findOne({ _id: new ObjectId(attachedTo) });
+    },
+    downvoteQuestion: async (_, { vote }, { db }: GqlContext) => {
+      const { attachedTo, number } = vote;
+      await db.questions.updateOne(
+        { _id: new ObjectId(attachedTo) },
+        { $inc: { downvotes: number } }
+      );
+      return db.questions.findOne({ _id: new ObjectId(attachedTo) });
+    },
+    upvoteAnswer: async (_, { vote }, { db }: GqlContext) => {
+      const { attachedTo, number } = vote;
+      await db.answers.updateOne(
+        { _id: new ObjectId(attachedTo) },
+        { $inc: { upvotes: number } }
+      );
+      return db.answers.findOne({ _id: new ObjectId(attachedTo) });
+    },
+    downvoteAnswer: async (_, { vote }, { db }: GqlContext) => {
+      const { attachedTo, number } = vote;
+      await db.answers.updateOne(
+        { _id: new ObjectId(attachedTo) },
+        { $inc: { downvotes: number } }
+      );
+      return db.answers.findOne({ _id: new ObjectId(attachedTo) });
+    },
   },
   Query: {
     questions: async (_parent, _, { db }: GqlContext) => {

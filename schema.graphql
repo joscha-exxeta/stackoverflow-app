@@ -7,14 +7,30 @@ type Answer {
   upvotes: Int!
 }
 
+input AnswerInput {
+  body: String!
+  questionId: ID!
+}
+
 type Comment {
   _id: ID!
   attachedTo: ID!
   body: String!
 }
 
+input CommentInput {
+  attachedTo: ID!
+  body: String!
+}
+
 type Mutation {
+  addAnswer(answer: AnswerInput!): Answer!
+  addComment(comment: CommentInput!): Comment!
   createQuestion(question: QuestionInput!): Question!
+  downvoteAnswer(vote: VoteInput!): Answer!
+  downvoteQuestion(vote: VoteInput!): Question!
+  upvoteAnswer(vote: VoteInput!): Answer!
+  upvoteQuestion(vote: VoteInput!): Question!
 }
 
 type Query {
@@ -35,4 +51,9 @@ type Question {
 input QuestionInput {
   body: String!
   title: String!
+}
+
+input VoteInput {
+  attachedTo: ID!
+  number: Int!
 }
