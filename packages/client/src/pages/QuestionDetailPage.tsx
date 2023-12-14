@@ -79,7 +79,10 @@ export const QuestionDetailPage = () => {
               </h1>
               <p className="">{data?.question?.body}</p>
             </header>
-            <footer className="border-t-2 border-purple-200 pt-4 flex gap-4">
+            <footer
+              data-testid="votes-list"
+              className="border-t-2 border-purple-200 pt-4 flex gap-4"
+            >
               <p className="flex items-center gap-2">
                 {data?.question?.upvotes} <IconThumbUp size={20} />
               </p>
@@ -88,7 +91,7 @@ export const QuestionDetailPage = () => {
               </p>
             </footer>
             {data?.question?.comments && data.question.comments?.length > 0 && (
-              <div className="ml-8">
+              <div data-testid="comments-list" className="ml-8">
                 <h2 className="font-bold mb-2 mt-6">Kommentare</h2>
                 {data.question.comments.map((comment) => (
                   <CommentItem
@@ -102,7 +105,7 @@ export const QuestionDetailPage = () => {
           </div>
 
           {data?.question?.answers && (
-            <div>
+            <div data-testid="answers-list">
               <h2 className="font-bold text-xl mb-2">Antworten</h2>
               {data.question.answers.map((answer) => (
                 <AnswerItem key={answer?._id} {...answer} />

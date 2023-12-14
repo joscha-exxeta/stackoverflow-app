@@ -1,15 +1,13 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  IconArrowBack,
   IconArrowNarrowLeft,
-  IconChevronLeft,
   IconExclamationCircle,
   IconLoader,
 } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
+import { Button } from "../components/Button";
 import { QuestionItem } from "../components/QuestionItem";
 import { QuestionsQuery } from "../gql/graphql";
-import { Button } from "../components/Button";
 
 const questionsQueryDocument = gql`
   query Questions {
@@ -41,7 +39,7 @@ export const QuestionListPage = () => {
         </Button>
       </header>
       <h1 className="font-bold text-xl mb-2">Alle Fragen</h1>
-      <section>
+      <section data-testid="questions-list">
         {loading && (
           <p className="flex gap-2 my-8">
             <IconLoader className="animate-spin" /> Lädt...

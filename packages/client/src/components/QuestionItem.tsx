@@ -18,9 +18,16 @@ export const QuestionItem = ({
         </Link>
         <p>{body}</p>
       </header>
-      <footer className="border-t-2 border-purple-200 pt-4 flex gap-4">
-        <p className="flex items-center gap-2">{upvotes} <IconThumbUp size={20} /></p>
-        <p className="flex items-center gap-2">{downvotes} <IconThumbDown size={20} /></p>
+      <footer
+        data-testid="question-footer"
+        className="border-t-2 border-purple-200 pt-4 flex gap-4"
+      >
+        <p className="flex items-center gap-2">
+          {upvotes} <IconThumbUp size={20} />
+        </p>
+        <p className="flex items-center gap-2">
+          {downvotes} <IconThumbDown size={20} />
+        </p>
         {answers && answers.length > 0 && (
           <p>
             {answers.length === 1
