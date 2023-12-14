@@ -1,14 +1,12 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  IconArrowNarrowLeft,
   IconExclamationCircle,
   IconLoader,
   IconThumbDown,
   IconThumbUp,
 } from "@tabler/icons-react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { AnswerItem } from "../components/AnswerItem";
-import { Button } from "../components/Button";
 import { CommentItem } from "../components/CommentItem";
 import { QuestionQuery } from "../gql/graphql";
 
@@ -46,7 +44,6 @@ export const QuestionDetailPage = () => {
       variables: { id },
     }
   );
-  const navigate = useNavigate();
 
   return (
     <>
@@ -97,7 +94,7 @@ export const QuestionDetailPage = () => {
             )}
           </div>
 
-          {data?.question?.answers && (
+          {data?.question?.answers && data.question.answers?.length > 0 && (
             <div data-testid="answers-list">
               <h2 className="font-bold text-xl mb-2">Antworten</h2>
               {data.question.answers.map((answer) => (

@@ -1,8 +1,8 @@
 import { Outlet, RouteObject } from "react-router-dom";
-import { QuestionListPage } from "./QuestionListPage";
-import { HomePage } from "./HomePage";
-import { QuestionDetailPage } from "./QuestionDetailPage";
 import { MainLayout } from "../layouts/MainLayout";
+import { QuestionCreatePage } from "./QuestionCreatePage";
+import { QuestionDetailPage } from "./QuestionDetailPage";
+import { QuestionListPage } from "./QuestionListPage";
 
 export const routes: RouteObject[] = [
   {
@@ -23,6 +23,10 @@ export const routes: RouteObject[] = [
           {
             path: ":id",
             element: <QuestionDetailPage />,
+          },
+          {
+            path: "create",
+            element: <QuestionCreatePage />,
           },
         ],
       },

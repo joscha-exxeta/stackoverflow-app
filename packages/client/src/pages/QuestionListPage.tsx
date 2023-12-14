@@ -1,11 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import {
-  IconArrowNarrowLeft,
   IconExclamationCircle,
   IconLoader,
+  IconPlus,
 } from "@tabler/icons-react";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../components/Button";
+import { Link } from "react-router-dom";
 import { QuestionItem } from "../components/QuestionItem";
 import { QuestionsQuery } from "../gql/graphql";
 
@@ -28,7 +27,6 @@ export const QuestionListPage = () => {
   const { loading, error, data } = useQuery<QuestionsQuery>(
     questionsQueryDocument
   );
-  const navigate = useNavigate();
 
   return (
     <>
@@ -48,6 +46,12 @@ export const QuestionListPage = () => {
         {data?.questions.map((question) => (
           <QuestionItem key={question?._id} {...question} />
         ))}
+        <Link to="question/create">
+          <div className="border-2 border-purple-200 p-8 rounded-lg mb-4 flex items-center gap-2 hover:bg-purple-200 hover:underline transition-all">
+            <IconPlus />
+            Neue Frage erstellen
+          </div>
+        </Link>
       </section>
     </>
   );

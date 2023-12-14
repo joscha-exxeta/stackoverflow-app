@@ -2,6 +2,24 @@ import { GqlContext } from "./create-context";
 import { ObjectId } from "mongodb";
 
 export const resolvers = {
+  Mutation: {
+    createQuestion: async (_, { question }, { db }: GqlContext) => {
+      const { title, body } = question;
+      const result = await db.questions.insertOne({
+        _id: new ObjectId(),
+        title,
+        body,
+        comments: [],
+        answers: [],
+        upvotes: 0,
+        downvotes: 0,
+      });
+      const newQuestion = await db.questions.findOne({
+        _id: result.insertedId,
+      });
+      return newQuestion;
+    },
+  },
   Query: {
     questions: async (_parent, _, { db }: GqlContext) => {
       return await db.questions.find().toArray();

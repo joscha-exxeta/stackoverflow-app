@@ -13,6 +13,10 @@ type Comment {
   body: String!
 }
 
+type Mutation {
+  createQuestion(question: QuestionInput!): Question!
+}
+
 type Query {
   question(_id: ID!): Question
   questions: [Question!]!
@@ -26,4 +30,9 @@ type Question {
   downvotes: Int!
   title: String!
   upvotes: Int!
+}
+
+input QuestionInput {
+  body: String!
+  title: String!
 }

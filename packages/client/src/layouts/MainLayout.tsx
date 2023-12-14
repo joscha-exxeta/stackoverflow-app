@@ -11,7 +11,7 @@ export const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
     <div className="flex flex-col min-h-[100vh]">
       <header className="p-4 bg-black flex items-center gap-4 min-h-[80px]">
         {!isHomepage && (
-          <Button onClick={() => navigate(-1)} type="secondary">
+          <Button onClick={() => navigate(-1)} type="secondary" size="md">
             <IconArrowNarrowLeft size={20} />
             Zurück
           </Button>

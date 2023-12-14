@@ -28,4 +28,13 @@ export const typeDefs = /* GraphQL */ `
     questions: [Question!]!
     question(_id: ID!): Question
   }
+
+  type Mutation {
+    createQuestion(question: QuestionInput!): Question!
+  }
+
+  input QuestionInput {
+    title: String!
+    body: String!
+  }
 `;

@@ -10,3 +10,8 @@
   background-color: theme("colors.purple.600");
   color: white;
 }
+
+input[type="text"],
+textarea {
+  @apply border-2 border-purple-200 bg-purple-50 rounded-md p-2;
+}
