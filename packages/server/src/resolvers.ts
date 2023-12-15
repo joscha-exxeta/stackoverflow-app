@@ -21,18 +21,17 @@ export const resolvers = {
     },
     addAnswer: async (_, { answer }, { db }: GqlContext) => {
       const { body, questionId } = answer;
-      const newAnswer = await db.answers.insertOne({
+      const result = await db.answers.insertOne({
         _id: new ObjectId(),
         body,
-        questionId,
+        questionId: new ObjectId(questionId),
         comments: [],
         upvotes: 0,
         downvotes: 0,
       });
-      await db.questions.updateOne(
-        { _id: new ObjectId(questionId) },
-        { $push: { answers: newAnswer.insertedId } }
-      );
+      const newAnswer = await db.answers.findOne({
+        _id: result.insertedId,
+      });
       return newAnswer;
     },
     addComment: async (_, { comment }, { db }: GqlContext) => {

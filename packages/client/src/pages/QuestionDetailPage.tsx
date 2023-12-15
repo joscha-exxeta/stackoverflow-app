@@ -1,11 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
 import {
   IconExclamationCircle,
-  IconLoader,
-  IconPlus,
+  IconLoader
 } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
-import { AnswerItem } from "../components/AnswerItem";
+import { AnswersList } from "../components/AnswersList";
 import { QuestionItem } from "../components/QuestionItem";
 import { QuestionQuery } from "../gql/graphql";
 
@@ -64,19 +63,11 @@ export const QuestionDetailPage = () => {
           <QuestionItem {...data?.question} showComments={true} />
 
           {data?.question?.answers && data.question.answers?.length > 0 && (
-            <>
-              <div data-testid="answers-list">
-                <h2 className="font-bold text-xl mb-2">Antworten</h2>
-                {data.question.answers.map((answer) => (
-                  <AnswerItem key={answer?._id} {...answer} />
-                ))}
-              </div>
-            </>
+            <AnswersList
+              answers={data.question.answers}
+              questionId={data.question._id}
+            />
           )}
-          <button className="border-2 border-gray-200 p-8 rounded-lg mb-4 flex w-full items-center gap-2 hover:bg-gray-200 hover:underline transition-all">
-            <IconPlus />
-            Antwort hinzufügen
-          </button>
         </>
       )}
     </>
