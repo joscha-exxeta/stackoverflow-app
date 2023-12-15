@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { IconLoader, IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
+import { useImperativeHandle, useRef, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Comment, CommentInput } from "../gql/graphql";
 import { Button } from "./Button";
@@ -26,6 +26,7 @@ export const CommentsList = ({
   color = "gray-200",
   attachedTo,
 }: CommentsListProps) => {
+  const textAreaRef = useRef<HTMLTextAreaElement | null>(null);
   const [editMode, setEditMode] = useState(false);
   const {
     reset,
@@ -36,6 +37,7 @@ export const CommentsList = ({
   const [createComment, { loading }] = useMutation(createCommentDocument, {
     refetchQueries: ["Question"],
   });
+  const { ref, ...rest } = register("body", { required: true });
 
   const onSubmit: SubmitHandler<CommentInput> = (data) => {
     createComment({
@@ -44,6 +46,13 @@ export const CommentsList = ({
     reset();
     setEditMode(false);
   };
+
+  const handleAddCommentClick = () => {
+    setEditMode(true);
+    setTimeout(() => textAreaRef?.current?.focus(), 0);
+  };
+
+  useImperativeHandle(ref, () => textAreaRef.current);
 
   return (
     <div data-testid="comments-list" className="mt-4 ml-8">
@@ -60,10 +69,7 @@ export const CommentsList = ({
       )}
       {editMode ? (
         <form onSubmit={handleSubmit(onSubmit)}>
-          <textarea
-            {...register("body", { required: true })}
-            className="w-full"
-          />
+          <textarea {...rest} ref={textAreaRef} className="w-full" />
           {errors.body && (
             <span className="bg-purple-200 px-2 py-1 text-sm rounded-md">
               Bitte Kommentar eingeben.
@@ -76,7 +82,7 @@ export const CommentsList = ({
         </form>
       ) : (
         <button
-          onClick={() => setEditMode(true)}
+          onClick={handleAddCommentClick}
           className={`border-2 border-${color} p-3 text-sm rounded-lg mb-4 flex w-full items-center gap-2 hover:bg-${color} hover:underline transition-all`}
         >
           <IconPlus />
