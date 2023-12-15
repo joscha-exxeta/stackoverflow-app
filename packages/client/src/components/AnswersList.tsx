@@ -86,7 +86,7 @@ export const AnswersList = ({ answers, questionId }: AnswersListProps) => {
           onClick={handleAddAnswerClick}
           className="border-2 border-gray-200 p-8 rounded-lg mb-4 flex w-full items-center gap-2 hover:bg-gray-200 hover:underline transition-all"
         >
-          <IconPlus />
+          <IconPlus className="shrink-0" />
           Antwort hinzufügen
         </button>
       )}

@@ -85,7 +85,7 @@ export const CommentsList = ({
           onClick={handleAddCommentClick}
           className={`border-2 border-${color} p-3 text-sm rounded-lg mb-4 flex w-full items-center gap-2 hover:bg-${color} hover:underline transition-all`}
         >
-          <IconPlus />
+          <IconPlus className="shrink-0" />
           Kommentar hinzufügen
         </button>
       )}

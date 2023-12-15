@@ -1,5 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
-import { IconThumbDown, IconThumbUp } from "@tabler/icons-react";
+import {
+  IconThumbDown,
+  IconThumbUp
+} from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { Question } from "../gql/graphql";
 import { CommentsList } from "./CommentsList";

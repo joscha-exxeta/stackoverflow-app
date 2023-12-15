@@ -1,5 +1,9 @@
 import { gql, useMutation } from "@apollo/client";
-import { IconThumbDown, IconThumbUp } from "@tabler/icons-react";
+import {
+  IconMessage,
+  IconThumbDown,
+  IconThumbUp
+} from "@tabler/icons-react";
 import { Answer } from "../gql/graphql";
 import { CommentsList } from "./CommentsList";
 
@@ -45,7 +49,10 @@ export const AnswerItem = ({
 
   return (
     <section className="bg-gray-100 p-8 rounded-lg mb-3">
-      <p className="mb-4">{body}</p>
+      <header className="flex gap-2">
+        <IconMessage size={18} className="mt-[0.125rem] shrink-0" />
+        <p className="mb-4">{body}</p>
+      </header>
       <footer
         data-testid="votes-list"
         className="border-t-2 border-gray-200 pt-4 flex gap-4"
