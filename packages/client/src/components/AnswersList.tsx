@@ -28,13 +28,16 @@ export const AnswersList = ({ answers, questionId }: AnswersListProps) => {
     handleSubmit,
     formState: { errors },
   } = useForm<AnswerInput>();
-  const [createAnswer, { loading }] = useMutation(addAnswerDocument);
+  const [createAnswer, { loading }] = useMutation(addAnswerDocument, {
+    refetchQueries: ["Question"],
+  });
 
   const onSubmit: SubmitHandler<AnswerInput> = (data) => {
     createAnswer({
       variables: { answer: { ...data, questionId } },
     });
     reset();
+    setEditMode(false);
   };
 
   return (

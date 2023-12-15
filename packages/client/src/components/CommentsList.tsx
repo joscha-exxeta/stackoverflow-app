@@ -33,13 +33,16 @@ export const CommentsList = ({
     handleSubmit,
     formState: { errors },
   } = useForm<CommentInput>();
-  const [createComment, { loading }] = useMutation(createCommentDocument);
+  const [createComment, { loading }] = useMutation(createCommentDocument, {
+    refetchQueries: ["Question"],
+  });
 
   const onSubmit: SubmitHandler<CommentInput> = (data) => {
     createComment({
       variables: { comment: { ...data, attachedTo } },
     });
     reset();
+    setEditMode(false);
   };
 
   return (

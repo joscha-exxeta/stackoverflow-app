@@ -1,8 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
-import {
-  IconExclamationCircle,
-  IconLoader
-} from "@tabler/icons-react";
+import { IconExclamationCircle, IconLoader } from "@tabler/icons-react";
 import { useParams } from "react-router-dom";
 import { AnswersList } from "../components/AnswersList";
 import { QuestionItem } from "../components/QuestionItem";
@@ -62,12 +59,10 @@ export const QuestionDetailPage = () => {
           <h2 className="font-bold text-xl mb-2">Frage</h2>
           <QuestionItem {...data?.question} showComments={true} />
 
-          {data?.question?.answers && data.question.answers?.length > 0 && (
-            <AnswersList
-              answers={data.question.answers}
-              questionId={data.question._id}
-            />
-          )}
+          <AnswersList
+            answers={data.question.answers}
+            questionId={data.question._id}
+          />
         </>
       )}
     </>

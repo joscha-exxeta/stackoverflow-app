@@ -1,8 +1,8 @@
+import { gql, useMutation } from "@apollo/client";
+import { IconCheck, IconLoader } from "@tabler/icons-react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button } from "../components/Button";
 import { QuestionInput } from "../gql/graphql";
-import { gql, useMutation } from "@apollo/client";
-import { IconCheck, IconLoader } from "@tabler/icons-react";
 
 const createQuestionDocument = gql`
   mutation CreateQuestion($question: QuestionInput!) {
@@ -22,7 +22,10 @@ export const QuestionCreatePage = () => {
     formState: { errors },
   } = useForm<QuestionInput>();
   const [createQuestion, { data, loading }] = useMutation(
-    createQuestionDocument
+    createQuestionDocument,
+    {
+      refetchQueries: ["Questions"],
+    }
   );
 
   const onSubmit: SubmitHandler<QuestionInput> = (data) => {
