@@ -6,7 +6,7 @@ import {
 } from "@tabler/icons-react";
 import { Link } from "react-router-dom";
 import { QuestionItem } from "../components/QuestionItem";
-import { QuestionsQuery } from "../gql/graphql";
+import { Question, QuestionsQuery } from "../gql/graphql";
 
 const questionsQueryDocument = gql`
   query Questions {
@@ -27,6 +27,15 @@ export const QuestionListPage = () => {
   const { loading, error, data } = useQuery<QuestionsQuery>(
     questionsQueryDocument
   );
+  let sortedQuestions: Question[] = [];
+
+  if (data?.questions) {
+    sortedQuestions = [...data.questions].sort((a, b) => {
+      const votesA = a.upvotes - a.downvotes;
+      const votesB = b.upvotes - b.downvotes;
+      return votesB - votesA;
+    });
+  }
 
   return (
     <>
@@ -43,7 +52,7 @@ export const QuestionListPage = () => {
             {error.message}
           </p>
         )}
-        {data?.questions.map((question) => (
+        {sortedQuestions?.map((question) => (
           <QuestionItem key={question?._id} {...question} isLink={true} />
         ))}
         <Link to="question/create">
