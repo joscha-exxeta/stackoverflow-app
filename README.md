@@ -19,4 +19,4 @@ Zwischenziele:
   - ✅ ~~Implementiere die Resolver so das sie über einen DbContext die Daten aus MongoDB auslesen. (Unit 2)~~
   - ✅ ~~Erzeuge in MongoDB einige Beispieldaten / Fakedaten (Unit 1)~~
 - [ZZ-04] ✅ ~~Implementiere alle Komponenten die zur Anzeige der Fakedaten (nur Query) notwendig sind. Teste mit Vitest & React Testing Library (RTL) um Komponenten zu testen und Playwright (PW) für E2E-tests. (Unit 7)~~
-- [ZZ-05] Füge die Funktionität (Mutations) ein um neue Fragen hinzuzufügen, Antworten und Kommentare zu schreiben und Up/Downvoten zu können. Nutzt React-Hook-Forms für alle notwendigen Formulare (Unit 6)
+- [ZZ-05] ✅ ~~Füge die Funktionität (Mutations) ein um neue Fragen hinzuzufügen, Antworten und Kommentare zu schreiben und Up/Downvoten zu können. Nutzt React-Hook-Forms für alle notwendigen Formulare (Unit 6)~~
