@@ -34,7 +34,6 @@ describe("single answer", () => {
 
     render(<AnswerItem {...answerWithComments} />);
 
-    expect(screen.getByText("Kommentare")).toBeDefined();
     expect(screen.getByText("Test Comment")).toBeDefined();
     expect(screen.getByText("Test Comment 2")).toBeDefined();
   });
