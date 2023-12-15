@@ -6,6 +6,10 @@
   font-family: Sen;
 }
 
+body {
+  background-color: white;
+}
+
 ::selection {
   background-color: theme("colors.purple.600");
   color: white;
@@ -14,4 +18,8 @@
 input[type="text"],
 textarea {
   @apply border-2 border-purple-200 bg-purple-50 rounded-md p-2;
+}
+
+.container {
+  @apply w-full max-w-[1280px] mx-auto p-4;
 }

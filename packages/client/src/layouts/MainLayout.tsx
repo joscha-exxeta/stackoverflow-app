@@ -9,18 +9,27 @@ export const MainLayout: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <div className="flex flex-col min-h-[100vh]">
-      <header className="p-4 bg-black flex items-center gap-4 min-h-[80px]">
-        {!isHomepage && (
-          <Button onClick={() => navigate(-1)} type="secondary" size="md">
-            <IconArrowNarrowLeft size={20} />
-            Zurück
-          </Button>
-        )}
-        <p className="text-white text-xl font-bold">Stackoverflow App</p>
+      <header className="bg-black flex items-center">
+        <div className="container flex items-center justify-center gap-4 relative">
+          {!isHomepage && (
+            <Button
+              onClick={() => navigate(-1)}
+              type="secondary"
+              size="md"
+              classes="absolute left-4"
+            >
+              <IconArrowNarrowLeft size={20} />
+              <span className="hidden md:block">Zurück</span>
+            </Button>
+          )}
+          <p className="text-white text-xl font-bold">Stackoverflow App</p>
+        </div>
       </header>
-      <main className="flex-grow px-4 pt-8 pb-12 bg-white">{children}</main>
-      <footer className="p-4 bg-black text-white flex items-center">
-        © 2023 JH
+      <main className="flex-grow my-2 lg:my-4">
+        <div className="container">{children}</div>
+      </main>
+      <footer className="bg-black text-white">
+        <div className="container flex justify-center">© 2023 JH</div>
       </footer>
     </div>
   );

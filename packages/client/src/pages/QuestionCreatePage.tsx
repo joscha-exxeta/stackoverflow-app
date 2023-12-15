@@ -35,7 +35,7 @@ export const QuestionCreatePage = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="max-w-[600px] flex flex-col gap-4">
+        <div className="flex flex-col gap-4">
           <label className="flex flex-col">
             <span className="text-sm font-bold">Titel</span>
             <input type="text" {...register("title", { required: true })} />
